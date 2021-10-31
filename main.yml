@@ -1,0 +1,6 @@
+---
+- name: 유저/그룹 생성 및 LVM 구성
+  hosts: my-server
+  become: yes
+  roles:
+    - 01-make-user-and-group

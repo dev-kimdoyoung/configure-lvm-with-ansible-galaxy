@@ -1,0 +1,8 @@
+all:
+    hosts:
+        my-server:
+            ansible_host: "your host ip"
+            ansible_port: 22
+            ansible_user: admin
+            ansible_password: "your password"
+            ansible_connection: ssh

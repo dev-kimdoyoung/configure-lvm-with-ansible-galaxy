@@ -1,0 +1,12 @@
+---
+- name: create new group
+  group:
+    name: "{{ new_group }}"
+    state: present
+
+- name: create new user and belonging new_group
+  user:
+    name: "{{ new_username }}"
+    group: "{{ new_group }}"
+    shell: /bin/bash
+    state: present
