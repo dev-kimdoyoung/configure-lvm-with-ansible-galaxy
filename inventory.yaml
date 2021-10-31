@@ -4,5 +4,5 @@ all:
             ansible_host: "your host ip"
             ansible_port: 22
             ansible_user: admin
-            ansible_password: "your password"
+            ansible_password: "your passsword"
             ansible_connection: ssh
