@@ -4,3 +4,5 @@
   become: yes
   roles:
     - 01-make-user-and-group
+    - 02-configure-lvm
+    
