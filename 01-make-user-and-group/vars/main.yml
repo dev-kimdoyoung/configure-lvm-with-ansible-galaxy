@@ -1,6 +1,6 @@
 ---
 # vars file for lvm
 new_username: oracle
-ner_userpassword: admin123
+new_user_password: admin123
 new_group: dba
 

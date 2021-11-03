@@ -1,0 +1,3 @@
+---
+is_remove_user: True      # True | False
+removed_username: remove_user

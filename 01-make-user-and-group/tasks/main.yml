@@ -7,6 +7,14 @@
 - name: create new user and belonging new_group
   user:
     name: "{{ new_username }}"
+    password: "{{ new_user_password }}"
     group: "{{ new_group }}"
     shell: /bin/bash
     state: present
+
+- name: remove specific user
+  user:
+    name: "{{ removed_username }}"
+    state: absent
+    remove: yes
+  when: is_remove_user == True

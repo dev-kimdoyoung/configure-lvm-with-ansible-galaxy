@@ -1,4 +1,4 @@
-all:
+server-group:
     hosts:
         my-server:
             ansible_host: "your host ip"
