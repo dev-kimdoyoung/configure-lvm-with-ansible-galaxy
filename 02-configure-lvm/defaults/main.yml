@@ -1,0 +1,8 @@
+---
+# defaults file for 02-configure-lvm
+packages:
+- lvm2
+physical_volume_list:
+- /dev/xvdb
+volume_group_name: vg_name
+logical_volume_name: lv_name

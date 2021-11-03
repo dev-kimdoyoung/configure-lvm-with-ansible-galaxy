@@ -1,0 +1,22 @@
+---
+- name: update all packages
+  yum:
+    name: "*"
+    state: latest
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+    state: present
+- name: Create a volume group on top of /dev/sdb with physical extent size = 32MB
+  lvg:
+    vg: "{{ volume_group_name }}"
+    pvs: "{{ physical_volume_list }}"
+#    pesize: 32
+    state: present
+- name: create the logical volume to consume all remaining space in the volume group
+  lvol:
+    vg: "{{ volume_group_name }}"
+    lv: "{{ logical_volume_name }}"
+    size: 100%FREE      # 200g | 100%FREE | 100%vg | 100%PVS
+    state: present
+
