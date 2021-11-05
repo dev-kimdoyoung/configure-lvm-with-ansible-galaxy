@@ -1,6 +1,24 @@
 ---
 # vars file for lvm
-new_username: oracle
-new_user_password: admin123
-new_group: dba
-
+new_user_infolist:
+- {
+    new_username: "oracle",
+    new_user_password: "admin123",
+    new_group: "dba"
+}
+- {
+    new_username: "oracle1",
+    new_user_password: "admin123",
+    new_group: "dba"
+}
+new_directory:
+- {
+    owner_name: "oracle",
+    group_name: "dba",
+    directory_path: "/home/oracle/ora_data"
+}
+- {
+    owner_name: "oracle",
+    group_name: "dba",
+    directory_path: "/home/oracle/ora_user"
+}

@@ -1,8 +1,10 @@
 ---
-# defaults file for 02-configure-lvm
 packages:
-- lvm2
-physical_volume_list:
-- /dev/xvdb
-volume_group_name: vg_name
-logical_volume_name: lv_name
+    - lvm2
+lvm_items:
+- {
+    pv_name: "/dev/xvdb",
+    vg_name: "vg_name",
+    lv_name: "lv_name",
+    mount_points: "/home/oracle/ora_data"
+}

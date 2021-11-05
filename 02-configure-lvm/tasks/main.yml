@@ -7,16 +7,29 @@
   yum:
     name: "{{ packages }}"
     state: present
-- name: Create a volume group on top of /dev/sdb with physical extent size = 32MB
+- name: Create a volume group
   lvg:
-    vg: "{{ volume_group_name }}"
-    pvs: "{{ physical_volume_list }}"
+    pvs: "{{ item.pv_name }}"
+    vg: "{{ item.vg_name }}"
 #    pesize: 32
     state: present
+  loop: "{{lvm_items}}"
 - name: create the logical volume to consume all remaining space in the volume group
   lvol:
-    vg: "{{ volume_group_name }}"
-    lv: "{{ logical_volume_name }}"
+    vg: "{{ item.vg_name }}"
+    lv: "{{ item.lv_name }}"
     size: 100%FREE      # 200g | 100%FREE | 100%vg | 100%PVS
     state: present
-
+  loop: "{{lvm_items}}"
+- name: Create a ext4 filesystem
+  filesystem:
+    fstype: ext4
+    dev: "/dev/{{ item.vg_name }}/{{ item.lv_name }}"
+  loop: "{{lvm_items}}"
+- name: mount up device by path
+  mount:
+    path: "{{ item.mount_points }}"
+    src: "/dev/{{ item.vg_name }}/{{ item.lv_name }}"
+    fstype: ext4
+    state: mounted
+  loop: "{{lvm_items}}"
