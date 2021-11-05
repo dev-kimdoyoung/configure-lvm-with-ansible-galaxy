@@ -1,0 +1,8 @@
+---
+- name: mount up device by path
+  mount:
+    path: "{{ item.mount_points }}"
+    src: "/dev/{{ item.vg_name }}/{{ item.lv_name }}"
+    fstype: ext4
+    state: mounted
+  loop: "{{lvm_items}}"

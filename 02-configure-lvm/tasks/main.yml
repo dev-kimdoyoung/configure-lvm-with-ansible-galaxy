@@ -1,35 +1,12 @@
 ---
-- name: update all packages
-  yum:
-    name: "*"
-    state: latest
-- name: ensure a list of packages installed
-  yum:
-    name: "{{ packages }}"
-    state: present
-- name: Create a volume group
-  lvg:
-    pvs: "{{ item.pv_name }}"
-    vg: "{{ item.vg_name }}"
-#    pesize: 32
-    state: present
-  loop: "{{lvm_items}}"
-- name: create the logical volume to consume all remaining space in the volume group
-  lvol:
-    vg: "{{ item.vg_name }}"
-    lv: "{{ item.lv_name }}"
-    size: 100%FREE      # 200g | 100%FREE | 100%vg | 100%PVS
-    state: present
-  loop: "{{lvm_items}}"
-- name: Create a ext4 filesystem
-  filesystem:
-    fstype: ext4
-    dev: "/dev/{{ item.vg_name }}/{{ item.lv_name }}"
-  loop: "{{lvm_items}}"
-- name: mount up device by path
-  mount:
-    path: "{{ item.mount_points }}"
-    src: "/dev/{{ item.vg_name }}/{{ item.lv_name }}"
-    fstype: ext4
-    state: mounted
-  loop: "{{lvm_items}}"
+- name: 패키지 업데이트 및 LVM 패키지 설치
+  import_tasks: update-packages.yml
+
+- name: LVM 구성
+  import_tasks: configure-lvm.yml
+
+- name: 파일시스템 구성
+  import_tasks: configure-filesystem.yml
+
+- name: 구성완료된 Logical Volume을 마운팅
+  import_tasks: mount-disk.yml

@@ -1,0 +1,16 @@
+---
+- name: Create a volume group
+  lvg:
+    pvs: "{{ item.pv_name }}"
+    vg: "{{ item.vg_name }}"
+#    pesize: 32
+    state: present
+  loop: "{{lvm_items}}"
+
+- name: create the logical volume to consume all remaining space in the volume group
+  lvol:
+    vg: "{{ item.vg_name }}"
+    lv: "{{ item.lv_name }}"
+    size: 100%FREE      # 200g | 100%FREE | 100%vg | 100%PVS
+    state: present
+  loop: "{{lvm_items}}"

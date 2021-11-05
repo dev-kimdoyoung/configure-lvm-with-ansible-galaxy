@@ -1,0 +1,6 @@
+---
+- name: Create a ext4 filesystem
+  filesystem:
+    fstype: ext4
+    dev: "/dev/{{ item.vg_name }}/{{ item.lv_name }}"
+  loop: "{{lvm_items}}"
